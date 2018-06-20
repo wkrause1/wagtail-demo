@@ -11,6 +11,7 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+from wagtail.contrib.forms.models import AbstractFormField, AbstractForm
 
 @register_snippet
 class BlogCategory(models.Model):
@@ -102,3 +103,17 @@ class BlogTagIndexPage(Page):
         context['blogpages'] = blogpages
         return context
 
+class FormField(AbstractFormField):
+    page = ParentalKey('FormPage', related_name='custom_form_fields')
+
+
+class FormPage(AbstractForm):
+    thank_you_text = RichTextField(blank=True)
+
+    content_panels = AbstractForm.content_panels + [
+        InlinePanel('custom_form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
+    ]
+
+    def get_form_fields(self):
+        return self.custom_form_fields.all()
