@@ -12,6 +12,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail.contrib.forms.models import AbstractFormField, AbstractForm
+from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 
 @register_snippet
 class BlogCategory(models.Model):
@@ -111,6 +112,7 @@ class FormPage(AbstractForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractForm.content_panels + [
+        FormSubmissionsPanel(),
         InlinePanel('custom_form_fields', label="Form fields"),
         FieldPanel('thank_you_text', classname="full"),
     ]
