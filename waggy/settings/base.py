@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'home',
     'search',
 
+    'widget_tweaks',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
