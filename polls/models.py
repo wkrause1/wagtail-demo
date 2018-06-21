@@ -51,9 +51,11 @@ class PollPage(RoutablePageMixin, Page):
             )
         if (request.method == "POST"):
             for key in request.POST:
-                print(key)
-                value = request.POST[key]
-                print(value)
+                if 'answer_' in key:
+                    choice = Choice.objects.get(pk=request.POST[key])
+                    choice.votes += 1
+                    choice.save()
+                    print('{}: {}'.format(choice, choice.votes))
             return HttpResponse("Thanks!")
 
        

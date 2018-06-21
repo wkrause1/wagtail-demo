@@ -13,7 +13,7 @@
             {{ question.question_text }}
             {% for choice in question.choice_set.all %}
                 <div>
-                <input type="radio" id="choice_{{ choice.id }}" name="answer__{{ question.id }}" value="{{ choice.id }}" />
+                <input type="radio" id="choice_{{ choice.id }}" name="answer_{{ question.id }}" value="{{ choice.id }}" />
                 <label for="choice_{{ choice.id }}">{{ choice.choice_text }}</label>
                 </div>
             {% endfor %}
