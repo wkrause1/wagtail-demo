@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-pollpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    {% for question in page.questions.all %}
+        <form method="post">
+            {% csrf_token %}
+            {{ question.question_text }}
+            {% for choice in question.choice_set.all %}
+                <div>
+                <input type="radio" id="choice_{{ choice.id }}" name="answer__{{ question.id }}" value="{{ choice.id }}" />
+                <label for="choice_{{ choice.id }}">{{ choice.choice_text }}</label>
+                </div>
+            {% endfor %}
+            <input type="submit" value="Submit">
+        </form>
+    {% endfor %}
+{% endblock %}
